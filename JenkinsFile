@@ -9,7 +9,7 @@ pipeline{
         stage('Unit and Integration Tests'){
             steps{
                 echo "Unit tests completed using test automation tool Katalon"
-                echo "Integration tests completed"
+                echo "Integration tests completed using Apache Camel"
             }
             post{
                 success{
@@ -69,7 +69,7 @@ pipeline{
         }
         stage('Integration Tests on Staging'){
             steps{
-                echo "Integration tests on the staging environment are run and completed"
+                echo "Integration tests on the staging environment using Kubernetes are run and completed"
             }
         }
         stage('Deploy to Production'){
