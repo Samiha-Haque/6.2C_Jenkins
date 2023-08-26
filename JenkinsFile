@@ -1,0 +1,81 @@
+pipeline{
+    agent any
+    stages{
+        stage('Build'){
+            steps{
+                echo "Building using build automation tool Maven completed"
+            }
+        }
+        stage('Unit and Integration Tests'){
+            steps{
+                echo "Unit tests completed using test automation tool Katalon"
+                echo "Integration tests completed"
+            }
+            post{
+                success{
+                      script{
+                        emailext(
+                            to : 'samihahaque96@gmail.com', 
+                            subject : 'Unit and Integration Test Email',
+                            body : 'Unit and Integration tests was successful',
+                            attachLog : true
+                        )
+                    }
+                }
+                failure{
+                      script{
+                        emailext(
+                            to : 'samihahaque96@gmail.com', 
+                            subject : 'Unit and Integration Test Email',
+                            body : 'Unit and Integration tests failed',
+                            attachLog : true
+                        )
+                    }
+                }
+            }
+            
+        }
+        stage('Code Analysis'){
+            steps{
+                echo "Code analysis using code analysis tool SonarQube is completed"
+            }
+        }
+        stage('Security Scan'){
+            steps{
+                echo "Security scan on the code using Burp Suite is completed"
+            }
+            post{
+                success{
+                      script{
+                        emailext(
+                            to : 'samihahaque96@gmail.com', 
+                            subject : 'Security Scan Email',
+                            body : 'Security scan on the code was successful',
+                            attachLog : true
+                        )
+                    }
+                }
+                failure{
+                      script{
+                        emailext(
+                            to : 'samihahaque96@gmail.com', 
+                            subject : 'Security Scan Email',
+                            body : 'Security scan on the code failed',
+                            attachLog : true
+                        )
+                    }
+                }
+            }
+        }
+        stage('Integration Tests on Staging'){
+            steps{
+                echo "Integration tests on the staging environment are run and completed"
+            }
+        }
+        stage('Deploy to Production'){
+            steps{
+                echo "Deploying the application to the Amazon Web Server(AWS) EC2 instance is completed"
+            }
+        }
+    }
+}
