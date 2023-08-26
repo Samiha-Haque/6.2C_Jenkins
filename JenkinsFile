@@ -77,10 +77,5 @@ pipeline{
                 echo "Deploying the application to the Amazon Web Server(AWS) EC2 instance is completed"
             }
         }
-        stage('Completed'){
-            steps{
-                echo "All stages are completed successfully"
-            }
-        }
     }
 }
